@@ -1,10 +1,17 @@
+const colors = require('tailwindcss/colors');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './src/lib-components/*.vue',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'litepie-primary': colors.sky, // color system for light mode
+        'litepie-secondary': colors.gray, // color system for dark mode
+      },
+    },
   },
   plugins: [],
 }

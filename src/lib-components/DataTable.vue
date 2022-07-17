@@ -1,6 +1,11 @@
 <script setup>
 import { computed, onBeforeMount, reactive, nextTick } from 'vue';
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDownShortWide } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpShortWide } from '@fortawesome/free-solid-svg-icons';
+library.add(faSpinner,faArrowDownShortWide,faArrowUpShortWide);
 
 const props = defineProps({
     columns: Array,
@@ -172,15 +177,15 @@ defineExpose({
                             <tr>
                                 <th v-for="(item, index) in columns" class="border py-2 px-3" :class="{'cursor-pointer':item.sortable}" @click="sortColumn(item)" :key="index">
                                     <span v-if="data.sortBy == item.db && item.sortable" class="text-sm text-gray-400">
-                                        <i v-if="!data.sortDesc" class="fa-solid fa-arrow-down-short-wide fa-fw"></i>
-                                        <i v-else-if="data.sortDesc" class="fa-solid fa-arrow-up-short-wide fa-fw"></i>
+                                        <FontAwesomeIcon v-if="!data.sortDesc" icon="fa-solid fa-arrow-down-short-wide" fixed-width />
+                                        <FontAwesomeIcon v-else-if="data.sortDesc" icon="fa-solid fa-arrow-up-short-wide" fixed-width />
                                     </span> {{ item.label }}
                                 </th>
                             </tr>
                         </thead>
                         <tbody class="relative divide-y divide-gray-200 bg-white">
                             <template v-if="data.is_loading">
-                                <div class="absolute inset-0 text-center py-4 px-2 flex justify-center items-center bg-white bg-opacity-75 z-10"><i class="fas fa-spinner fa-spin"></i></div>
+                                <div class="absolute inset-0 text-center py-4 px-2 flex justify-center items-center bg-white bg-opacity-75 z-10"><FontAwesomeIcon icon="fa-solid fa-spinner" spin /></div>
                                 <tr v-if="!data.is_init">
                                     <td :colspan="columns.length" class="h-16"></td>
                                 </tr>
