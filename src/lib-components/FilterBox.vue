@@ -205,7 +205,7 @@ defineExpose({
                                     <button type="button" class="hover:bg-red-700 bg-red-600 border-transparent text-white px-4 py-2 text-sm mr-2 inline-flex items-center justify-center rounded-md border font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto focus:ring-indigo-500" :class="{'opacity-25':data.form.processing}" :disabled="data.form.processing" @click="resetField">
                                         Reset
                                     </button>
-                                    <button type="button" class="hover:bg-indigo-700 bg-indigo-600 border-transparent text-white px-4 py-2 text-sm mr-2 inline-flex items-center justify-center rounded-md border font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto focus:ring-indigo-500" :class="{'opacity-25':data.form.processing}" :disabled="data.form.processing" @click="resetField">
+                                    <button type="submit" class="hover:bg-indigo-700 bg-indigo-600 border-transparent text-white px-4 py-2 text-sm mr-2 inline-flex items-center justify-center rounded-md border font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto focus:ring-indigo-500" :class="{'opacity-25':data.form.processing}" :disabled="data.form.processing">
                                         <template v-if="data.form.processing">
                                             <FontAwesomeIcon icon="fa-solid fa-spinner" spin />
                                         </template>
