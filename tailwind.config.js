@@ -1,10 +1,10 @@
+const path = require('path');
 const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  prefix: 'sd-',
   content: [
-    './src/lib-components/*.vue',
+    path.resolve(__dirname, './node_modules/@syamsoul/vue3-datatable/**/*.vue'),
   ],
   theme: {
     extend: {

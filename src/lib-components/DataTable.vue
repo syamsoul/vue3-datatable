@@ -52,7 +52,7 @@ const switchPageBtnClasses = computed(()=>{
             }
         }
 
-        return is_disabled ? ["sd-bg-gray-50 sd-text-gray-300 sd-cursor-default"] : ["sd-text-gray-600 sd-bg-white sd-text-gray-500 hover:sd-bg-gray-50"];
+        return is_disabled ? ["bg-gray-50 text-gray-300 cursor-default"] : ["text-gray-600 bg-white text-gray-500 hover:bg-gray-50"];
     };
 });
 
@@ -168,42 +168,42 @@ defineExpose({
 </script>
 
 <template>
-    <div class="sd-flex sd-flex-col" :class="class">
-        <div class="-sd-my-2 -sd-mx-4 sd-overflow-x-auto sm:-sd-mx-6 lg:-sd-mx-8">
-            <div class="sd-inline-block sd-min-w-full sd-py-2 sd-align-middle md:sd-px-6 lg:sd-px-8">
-                <div class="sd-overflow-hidden sd-shadow sd-ring-1 sd-ring-black sd-ring-opacity-5 md:sd-rounded-lg">
-                    <table class="sd-min-w-full sd-divide-y sd-divide-gray-300">
-                        <thead class="sd-bg-gray-50">
+    <div class="flex flex-col" :class="class">
+        <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-300">
+                        <thead class="bg-gray-50">
                             <tr>
-                                <th v-for="(item, index) in columns" class="sd-border sd-py-2 sd-px-3" :class="{'sd-cursor-pointer':item.sortable}" @click="sortColumn(item)" :key="index">
-                                    <span v-if="data.sortBy == item.db && item.sortable" class="sd-text-sm sd-text-gray-400">
+                                <th v-for="(item, index) in columns" class="border py-2 px-3" :class="{'cursor-pointer':item.sortable}" @click="sortColumn(item)" :key="index">
+                                    <span v-if="data.sortBy == item.db && item.sortable" class="text-sm text-gray-400">
                                         <FontAwesomeIcon v-if="!data.sortDesc" icon="fa-solid fa-arrow-down-short-wide" fixed-width />
                                         <FontAwesomeIcon v-else-if="data.sortDesc" icon="fa-solid fa-arrow-up-short-wide" fixed-width />
                                     </span> {{ item.label }}
                                 </th>
                             </tr>
                         </thead>
-                        <tbody class="sd-relative sd-divide-y sd-divide-gray-200 sd-bg-white">
+                        <tbody class="relative divide-y divide-gray-200 bg-white">
                             <template v-if="data.is_loading">
-                                <div class="sd-absolute sd-inset-0 sd-text-center sd-py-4 sd-px-2 sd-flex sd-justify-center sd-items-center sd-bg-white sd-bg-opacity-75 sd-z-10"><FontAwesomeIcon icon="fa-solid fa-spinner" spin /></div>
+                                <div class="absolute inset-0 text-center py-4 px-2 flex justify-center items-center bg-white bg-opacity-75 z-10"><FontAwesomeIcon icon="fa-solid fa-spinner" spin /></div>
                                 <tr v-if="!data.is_init">
-                                    <td :colspan="columns.length" class="sd-h-16"></td>
+                                    <td :colspan="columns.length" class="h-16"></td>
                                 </tr>
                             </template>
                             <template v-if="data.is_init">
                                 <template v-if="data.data.length <= 0">
                                     <tr>
-                                        <td :colspan="columns.length"><div class="sd-text-center sd-text-gray-500 sd-py-4 sd-px-2">No Data</div></td>
+                                        <td :colspan="columns.length"><div class="text-center text-gray-500 py-4 px-2">No Data</div></td>
                                     </tr>
                                 </template>
                                 <template v-else>
                                     <tr v-for="(row, index) in data.data">
-                                        <td v-for="(item, index2) in columns" class="sd-whitespace-nowrap sd-py-4 sd-pl-4 sd-pr-3 sd-text-sm sd-font-medium sd-text-gray-900 sm:sd-pl-6" :class="item.class">
+                                        <td v-for="(item, index2) in columns" class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6" :class="item.class">
                                             <template v-if="typeof row[item.db] == 'string' || typeof row[item.db] == 'number' || row[item.db] == null">
                                                 <span v-if="!data.is_refreshing" v-html="row[item.db]"></span>
                                             </template>
                                             <template v-else-if="Array.isArray(row[item.db])">
-                                                <div class="sd-whitespace-nowrap">
+                                                <div class="whitespace-nowrap">
                                                     <template v-for="(slot, index3) in row[item.db]">
                                                         <slot v-if="!data.is_refreshing" :name="slot.slotName" :data="slot"></slot>
                                                     </template>
@@ -222,31 +222,31 @@ defineExpose({
             </div>
         </div>
     </div>
-    <div class="sd-py-3 sd-text-sm sd-select-none sd-grid sd-grid-cols-2 sd-gap-4">
+    <div class="py-3 text-sm select-none grid grid-cols-2 gap-4">
         <div>
             <span v-if="data.total_filtered_item_count > 0">Showing <b>{{ startEntry }}</b> to <b>{{ endEntry }}</b> of <b>{{ data.total_filtered_item_count }}</b> entries <span v-if="data.total_filtered_item_count != data.total_item_count">(filtered from <b>{{ data.total_item_count }}</b> total entries)</span></span>
         </div>
-        <div class="sd-text-right">
-            <div class="sd-inline-block">
-                <nav class="sd-relative sd-z-0 sd-inline-flex sd-rounded-md sd-shadow-sm -sd-space-x-px" aria-label="Pagination">
-                    <button type="button" :class="switchPageBtnClasses('prev')" @click="fetchData(data.page - 1)" class="sd-relative sd-inline-flex sd-items-center sd-px-2 sd-py-2 sd-rounded-l-md sd-border sd-border-gray-300 sd-text-sm sd-font-medium">
-                        <span class="sd-sr-only">Previous</span>
+        <div class="text-right">
+            <div class="inline-block">
+                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                    <button type="button" :class="switchPageBtnClasses('prev')" @click="fetchData(data.page - 1)" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 text-sm font-medium">
+                        <span class="sr-only">Previous</span>
                         <!-- Heroicon name: solid/chevron-left -->
-                        <svg class="sd-h-5 sd-w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
                         </svg>
                     </button>
-                    <span class="sd-z-10 sd-bg-indigo-50 sd-border-indigo-500 sd-text-indigo-600 sd-relative sd-inline-flex sd-items-center sd-border sd-text-sm sd-font-medium">
-                        <select @change="fetchData()" v-model="data.page" class="sd-inline-block sd-py-2 sd-px-3 sd-h-full sd-w-full sd-appearance-none sd-bg-none sd-text-center sd-border-0 focus:sd-border-0 focus:sd-shadow-none focus:sd-ring-0">
+                    <span class="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center border text-sm font-medium">
+                        <select @change="fetchData()" v-model="data.page" class="inline-block py-2 px-3 h-full w-full appearance-none bg-none text-center border-0 focus:border-0 focus:shadow-none focus:ring-0">
                             <template v-for="(item, index) in data.pages">
                                 <option :value="item">{{ item }}</option>
                             </template>
                         </select>
                     </span>
-                    <button type="button" :class="switchPageBtnClasses('next')" @click="fetchData(data.page + 1)" class="sd-relative sd-inline-flex sd-items-center sd-px-2 sd-py-2 sd-rounded-r-md sd-border sd-border-gray-300 sd-text-sm sd-font-medium">
-                        <span class="sd-sr-only">Next</span>
+                    <button type="button" :class="switchPageBtnClasses('next')" @click="fetchData(data.page + 1)" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 text-sm font-medium">
+                        <span class="sr-only">Next</span>
                         <!-- Heroicon name: solid/chevron-right -->
-                        <svg class="sd-h-5 sd-w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                         </svg>
                     </button>

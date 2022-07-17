@@ -148,38 +148,38 @@ defineExpose({
 </script>
 <template>
     <TransitionRoot as="template" :show="!data.is_modal_hidden">
-        <div class="sd-fixed sd-inset-0 sd-z-50 sd-flex sd-justify-center sd-bg-gray-700 sd-bg-opacity-60 sd-overflow-y-auto" @click.self="hideModal">
-            <div class="sd-max-w-2xl sd-w-full sd-mt-10">
-                <TransitionChild as="template" enter="sd-ease-out sd-duration-300" enter-from="sd-opacity-0 sd-translate-y-4 sm:sd-translate-y-0 sm:sd-scale-95" enter-to="sd-opacity-100 sd-translate-y-0 sm:sd-scale-100" leave="sd-ease-in sd-duration-200" leave-from="sd-opacity-100 sd-translate-y-0 sm:sd-scale-100" leave-to="sd-opacity-0 sd-translate-y-4 sm:sd-translate-y-0 sm:sd-scale-95">
-                    <div class="sd-bg-white sd-shadow-sm sm:sd-rounded-lg">
-                        <div class="sd-relative sd-px-6 sd-py-3 sd-bg-gray-200 sd-font-semibold sm:sd-rounded-t-lg">
-                            <div class="sd-absolute sd-top-0 sd-right-0 sd-mt-3 sd-mr-4 sd-text-gray-500 sd-cursor-pointer" @click="hideModal"><FontAwesomeIcon icon="fa-solid fa-xmark" /></div>
-                            <FontAwesomeIcon icon="fa-solid fa-filter" class="sd-mr-2" /> Filter
+        <div class="fixed inset-0 z-50 flex justify-center bg-gray-700 bg-opacity-60 overflow-y-auto" @click.self="hideModal">
+            <div class="max-w-2xl w-full mt-10">
+                <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                    <div class="bg-white shadow-sm sm:rounded-lg">
+                        <div class="relative px-6 py-3 bg-gray-200 font-semibold sm:rounded-t-lg">
+                            <div class="absolute top-0 right-0 mt-3 mr-4 text-gray-500 cursor-pointer" @click="hideModal"><FontAwesomeIcon icon="fa-solid fa-xmark" /></div>
+                            <FontAwesomeIcon icon="fa-solid fa-filter" class="mr-2" /> Filter
                         </div>
-                        <div class="sd-p-6 sd-bg-white sd-border-b sd-border-gray-200 sm:sd-rounded-b-lg">
-                            <ul class="sd-list-none sd-mb-4">
-                                <li v-for="(item, field_name, index) in data.new_fields" class="sd-inline-block sd-py-1 sd-px-1.5 sd-bg-gray-100 sd-mr-2 sd-mb-2 sd-rounded" :key="index">
-                                    <label class="sd-flex sd-items-center">
-                                        <input type="checkbox" v-model="data.new_fields[field_name].enable" class="sd-rounded sd-border-gray-300 sd-text-indigo-600 sd-shadow-sm focus:sd-border-indigo-300 focus:sd-ring focus:sd-ring-indigo-200 focus:sd-ring-opacity-50" :disabled="data.form.processing">
-                                        <span class="sd-ml-2 sd-text-sm sd-text-gray-600">{{ item.label }}</span>
+                        <div class="p-6 bg-white border-b border-gray-200 sm:rounded-b-lg">
+                            <ul class="list-none mb-4">
+                                <li v-for="(item, field_name, index) in data.new_fields" class="inline-block py-1 px-1.5 bg-gray-100 mr-2 mb-2 rounded" :key="index">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" v-model="data.new_fields[field_name].enable" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" :disabled="data.form.processing">
+                                        <span class="ml-2 text-sm text-gray-600">{{ item.label }}</span>
                                     </label>
                                 </li>
                             </ul>
                             <form @submit.prevent="submit">
                                 <template v-for="(item, field_name, index) in data.new_fields" :key="index">
                                     <template v-if="typeof item == 'object'">
-                                        <div v-if="typeof item.enable == 'boolean' && item.enable" class="sm:sd-grid sm:sd-grid-cols-5 sm:sd-gap-2" :class="{'sd-mb-2':(index+1)<fields.length}">
-                                            <div class="sd-flex sd-items-center">
-                                                <label :for="item.name" class="sd-block sd-font-medium sd-text-sm sd-text-gray-700">
+                                        <div v-if="typeof item.enable == 'boolean' && item.enable" class="sm:grid sm:grid-cols-5 sm:gap-2" :class="{'mb-2':(index+1)<fields.length}">
+                                            <div class="flex items-center">
+                                                <label :for="item.name" class="block font-medium text-sm text-gray-700">
                                                     <span>{{ item.label }}</span>
                                                 </label>
                                             </div>
-                                            <div class="sd-col-span-4 sd-flex sd-items-center">
+                                            <div class="col-span-4 flex items-center">
                                                 <template v-if="typeof item.type == 'undefined' || item.type == 'text'">
-                                                    <input type="text" :id="item.name" class="sd-mt-1 sd-block sd-w-full sd-max-w-lg sd-block sd-w-full sd-shadow-sm focus:sd-ring-indigo-500 focus:sd-border-indigo-500 sm:sd-text-sm sd-border-gray-300 sd-rounded-md" :class="{'sd-bg-gray-200':data.form.processing}" v-model="data.form.data[item.name]" :disabled="data.form.processing" autocomplete="off" required />
+                                                    <input type="text" :id="item.name" class="mt-1 block w-full max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md" :class="{'bg-gray-200':data.form.processing}" v-model="data.form.data[item.name]" :disabled="data.form.processing" autocomplete="off" required />
                                                 </template>
                                                 <template v-else-if="item.type == 'select'">
-                                                    <select :id="item.name" class="sd-mt-1 sd-block sd-w-full sd-max-w-lg sd-block focus:sd-ring-indigo-500 focus:sd-border-indigo-500 sd-w-full sd-shadow-sm sm:sd-text-sm sd-border-gray-300 sd-rounded-md" :class="{'sd-bg-gray-200':disabled}" v-model="data.form.data[item.name]" :disabled="data.form.processing" autocomplete="off" required>
+                                                    <select :id="item.name" class="mt-1 block w-full max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" :class="{'bg-gray-200':disabled}" v-model="data.form.data[item.name]" :disabled="data.form.processing" autocomplete="off" required>
                                                         <option disabled selected value="">-- SELECT --</option>
                                                         <option v-for="(label, value) in item.options" :value="value">{{ label }}</option>
                                                     </select>
@@ -201,16 +201,16 @@ defineExpose({
                                     </template>
                                 </template>
 
-                                <div class="sd-text-right sd-mt-4">
-                                    <button type="button" class="hover:sd-bg-red-700 sd-bg-red-600 sd-border-transparent sd-text-white sd-px-4 sd-py-2 sd-text-sm sd-mr-2 sd-inline-flex sd-items-center sd-justify-center sd-rounded-md sd-border sd-font-medium sd-shadow-sm focus:sd-outline-none focus:sd-ring-2 focus:sd-ring-offset-2 sm:sd-w-auto focus:sd-ring-indigo-500" :class="{'sd-opacity-25':data.form.processing}" :disabled="data.form.processing" @click="resetField">
+                                <div class="text-right mt-4">
+                                    <button type="button" class="hover:bg-red-700 bg-red-600 border-transparent text-white px-4 py-2 text-sm mr-2 inline-flex items-center justify-center rounded-md border font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto focus:ring-indigo-500" :class="{'opacity-25':data.form.processing}" :disabled="data.form.processing" @click="resetField">
                                         Reset
                                     </button>
-                                    <button type="button" class="hover:sd-bg-indigo-700 sd-bg-indigo-600 sd-border-transparent sd-text-white sd-px-4 sd-py-2 sd-text-sm sd-mr-2 sd-inline-flex sd-items-center sd-justify-center sd-rounded-md sd-border sd-font-medium sd-shadow-sm focus:sd-outline-none focus:sd-ring-2 focus:sd-ring-offset-2 sm:sd-w-auto focus:sd-ring-indigo-500" :class="{'sd-opacity-25':data.form.processing}" :disabled="data.form.processing" @click="resetField">
+                                    <button type="button" class="hover:bg-indigo-700 bg-indigo-600 border-transparent text-white px-4 py-2 text-sm mr-2 inline-flex items-center justify-center rounded-md border font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto focus:ring-indigo-500" :class="{'opacity-25':data.form.processing}" :disabled="data.form.processing" @click="resetField">
                                         <template v-if="data.form.processing">
                                             <FontAwesomeIcon icon="fa-solid fa-spinner" spin />
                                         </template>
                                         <template v-else>
-                                            <FontAwesomeIcon icon="fa-solid fa-search" class="sd-mr-1" spin /> Search
+                                            <FontAwesomeIcon icon="fa-solid fa-search" class="mr-1" /> Search
                                         </template>
                                     </button>
                                 </div>
