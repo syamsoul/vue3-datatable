@@ -4,7 +4,8 @@ const colors = require('tailwindcss/colors');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    path.resolve(__dirname, './node_modules/@syamsoul/vue3-datatable/**/*.vue'),
+    './src/lib-components/**/*.vue',
+    './node_modules/litepie-datepicker-tw3/**/*.js',
   ],
   theme: {
     extend: {

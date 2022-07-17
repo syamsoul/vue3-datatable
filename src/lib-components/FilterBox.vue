@@ -179,7 +179,7 @@ defineExpose({
                                                     <input type="text" :id="item.name" class="mt-1 block w-full max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md" :class="{'bg-gray-200':data.form.processing}" v-model="data.form.data[item.name]" :disabled="data.form.processing" autocomplete="off" required />
                                                 </template>
                                                 <template v-else-if="item.type == 'select'">
-                                                    <select :id="item.name" class="mt-1 block w-full max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" :class="{'bg-gray-200':disabled}" v-model="data.form.data[item.name]" :disabled="data.form.processing" autocomplete="off" required>
+                                                    <select :id="item.name" class="mt-1 block w-full max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" :class="{'bg-gray-200':data.form.processing}" v-model="data.form.data[item.name]" :disabled="data.form.processing" autocomplete="off" required>
                                                         <option disabled selected value="">-- SELECT --</option>
                                                         <option v-for="(label, value) in item.options" :value="value">{{ label }}</option>
                                                     </select>
@@ -201,7 +201,7 @@ defineExpose({
                                     </template>
                                 </template>
 
-                                <div class="text-right mt-4">
+                                <div class="flex items-center justify-end mt-4">
                                     <button type="button" class="hover:bg-red-700 bg-red-600 border-transparent text-white px-4 py-2 text-sm mr-2 inline-flex items-center justify-center rounded-md border font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto focus:ring-indigo-500" :class="{'opacity-25':data.form.processing}" :disabled="data.form.processing" @click="resetField">
                                         Reset
                                     </button>
