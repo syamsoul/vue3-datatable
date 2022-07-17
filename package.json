@@ -1,38 +1,36 @@
 {
   "name": "@syamsoul/vue3-datatable",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "",
-
   "repository": {
     "type": "git",
     "url": "https://github.com/syamsoul/vue3-datatable.git"
   },
-
   "main": "dist/vue3-datatable.ssr.js",
   "browser": "dist/vue3-datatable.esm.js",
   "module": "dist/vue3-datatable.esm.js",
   "unpkg": "dist/vue3-datatable.min.js",
   "types": "dist/types/src/entry.esm.d.ts",
-
   "files": [
     "dist/*",
     "src/**/*.vue"
   ],
   "sideEffects": false,
-
   "scripts": {
     "serve": "vue-cli-service serve dev/serve.ts",
     "prebuild": "rimraf ./dist",
+    "build:tailwind": "cross-env NODE_ENV=production rollup --config build/rollup.config.js && npx tailwindcss -o ./dist/css/vue3-datatable.css --minify",
     "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
     "postbuild": "rimraf ./dist/types/dev ./dist/types/src/entry.d.ts"
   },
-
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/vue-fontawesome": "^3.0.1"
   },
-
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.7",
@@ -54,8 +52,9 @@
     "rollup": "^2.52.8",
     "rollup-plugin-postcss": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-vue": "^6.0.0",
     "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-vue": "^6.0.0",
+    "tailwindcss": "^3.1.6",
     "ttypescript": "^1.5.12",
     "typescript": "^4.0.3",
     "vue": "^3.0.5"
