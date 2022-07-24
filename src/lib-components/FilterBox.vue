@@ -15,6 +15,8 @@ const emit = defineEmits(['formReady', 'submitForm']);
 
 const props = defineProps({
     fields: {type:Array, default: []},
+    dataTable: Object,
+    filterDataDisplay: Object,
 });
 
 const data = reactive({
@@ -33,6 +35,10 @@ onBeforeMount(async ()=>{
     await nextTick();
     await resetField();
 
+    props.dataTable.fetchData(1, getData(), ()=>{
+        props.filterDataDisplay.refreshData();
+    });
+
     emit('formReady', {
         getData,
         getDataForView,
@@ -43,6 +49,13 @@ onBeforeMount(async ()=>{
 
 const submit = function(){
     data.form.processing = true;
+
+    props.dataTable.fetchData(1, getData(), (res)=>{
+        data.form.processing = false;
+        props.filterDataDisplay.refreshData();
+        hideModal();
+    });
+
     emit('submitForm', {
         getData,
         getDataForView,
@@ -144,6 +157,7 @@ defineExpose({
     clear,
     getData,
     showModal,
+    getDataForView,
 });
 </script>
 <template>
